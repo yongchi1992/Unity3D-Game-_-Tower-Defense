@@ -37,8 +37,8 @@ public class EnemyManager : MonoBehaviour
 		if (_holder.childCount >= MaxAsteroidCount) { return; }
 		Vector3 pos = new Vector3 (0, 1, 0);
 		Quaternion rotation = new Quaternion ();
-		//GameObject tmpEnemy = (GameObject)
-		Object.Instantiate(_asteroidPrefab, pos, rotation, _holder);
+		GameObject tmpEnemy = (GameObject) Object.Instantiate(_asteroidPrefab, pos, rotation, _holder);
+		tmpEnemy.tag = "Enemy";
 	}
 
 }

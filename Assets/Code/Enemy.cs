@@ -5,8 +5,8 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private float _enemySpeed = 5f;
-    private int _health = 10;
-    private int _currentHealth;
+    public float _health = 10000000f;
+	private float _currentHealth;
     private Transform _nextpoint;
     private int pointIndex = 0;
 
@@ -42,5 +42,18 @@ public class Enemy : MonoBehaviour
             _nextpoint = Pathfinding.points[pointIndex];
         }
     }
+
+	public void TakeDamage (float amount)
+	{
+		_currentHealth -= amount;
+
+
+
+		if (_currentHealth <= 0)
+		{
+			Debug.Log ("dsfsdewqweqeeff");
+			Destroy(gameObject);
+		}
+	}
      
 }

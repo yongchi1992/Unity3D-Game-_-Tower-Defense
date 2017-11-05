@@ -6,26 +6,16 @@ public class Turret : MonoBehaviour {
 	public Transform target;
 	private Enemy targetEnemy;
 
-	[Header("General")]
+
 
 	public float range = 10f;
 
-	[Header("Use Bullets (default)")]
+
 	public GameObject bulletPrefab;
-	public float fireRate = 1f;
+	public float fireSpeed = 0.8f;
 	private float fireCountdown = 0f;
 
-	[Header("Use Laser")]
-	public bool useLaser = false;
 
-	public int damageOverTime = 30;
-	public float slowAmount = .5f;
-
-	public LineRenderer lineRenderer;
-	public ParticleSystem impactEffect;
-	public Light impactLight;
-
-	[Header("Unity Setup Fields")]
 
 	public string enemyTag = "Enemy";
 
@@ -67,85 +57,34 @@ public class Turret : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-//		if (target == null)
-//		{
-//			if (useLaser)
-//			{
-//				if (lineRenderer.enabled)
-//				{
-//					lineRenderer.enabled = false;
-//					impactEffect.Stop();
-//					impactLight.enabled = false;
-//				}
-//			}
-//
-//			return;
-//		}
-//
-//    	LockOnTarget();
-//
-//		if (useLaser)
-//		{
-//			Laser();
-//		} else
-//		{
-//			if (fireCountdown <= 0f)
-//			{
-//				Shoot();
-//				fireCountdown = 1f / fireRate;
-//			}
-//
-//			fireCountdown -= Time.deltaTime;
-//		}
-
-
+		
 		if (target == null)
 			return;
 
-		LockOnTarget();
-
-
-	}
-
-	void LockOnTarget ()
-	{
 		Vector3 dir = target.position - transform.position;
 		Quaternion lookRotation = Quaternion.LookRotation(dir);
 		Vector3 rotation = Quaternion.Lerp(partToRotate.rotation, lookRotation, Time.deltaTime * rotateSpeed).eulerAngles;
 		partToRotate.rotation = Quaternion.Euler(0f, rotation.y, 0f);
-	}
-	/*
-	void Laser ()
-	{
-		targetEnemy.TakeDamage(damageOverTime * Time.deltaTime);
-		targetEnemy.Slow(slowAmount);
 
-		if (!lineRenderer.enabled)
+		if (fireCountdown <= 0f)
 		{
-			lineRenderer.enabled = true;
-			impactEffect.Play();
-			impactLight.enabled = true;
+			Shoot();
+			fireCountdown = 1f / fireSpeed;
 		}
 
-		lineRenderer.SetPosition(0, firePoint.position);
-		lineRenderer.SetPosition(1, target.position);
+		fireCountdown -= Time.deltaTime;
 
-		Vector3 dir = firePoint.position - target.position;
-
-		impactEffect.transform.position = target.position + dir.normalized;
-
-		impactEffect.transform.rotation = Quaternion.LookRotation(dir);
 	}
 
 	void Shoot ()
 	{
-		GameObject bulletGO = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-		Bullet bullet = bulletGO.GetComponent<Bullet>();
+		GameObject shootBullet = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+		Bullet bullet = shootBullet.GetComponent<Bullet>();
 
 		if (bullet != null)
 			bullet.Seek(target);
 	}
-*/
+
 	void OnDrawGizmosSelected ()
 	{
 		Gizmos.color = Color.red;
