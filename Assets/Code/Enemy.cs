@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private float _enemySpeed = 5f;
-    public float _health = 10000000f;
+    private float _health = 100f;
 	private float _currentHealth;
     private Transform _nextpoint;
     private int pointIndex = 0;

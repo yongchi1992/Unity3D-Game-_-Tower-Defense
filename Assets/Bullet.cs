@@ -6,7 +6,7 @@ public class Bullet : MonoBehaviour {
 
 	public float speed = 55f;
 
-	public float damage = 3f;
+	private float damage = 20f;
 
 
 	public void Seek (Transform _target)
