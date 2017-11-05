@@ -35,9 +35,10 @@ public class EnemyManager : MonoBehaviour
 
 	private void Spawn () {
 		if (_holder.childCount >= MaxAsteroidCount) { return; }
-//		var pos = BoundsChecker.GetRandomPos();
-//		var vel = BoundsChecker.GetRandomVelocity();
-		GameObject tmpEnemy = (GameObject)Object.Instantiate(_asteroidPrefab, _holder);
+		Vector3 pos = new Vector3 (0, 1, 0);
+		Quaternion rotation = new Quaternion ();
+		//GameObject tmpEnemy = (GameObject)
+		Object.Instantiate(_asteroidPrefab, pos, rotation, _holder);
 	}
 
 }
