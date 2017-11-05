@@ -10,6 +10,8 @@ public class Enemy : MonoBehaviour
     private Transform _nextpoint;
     private int pointIndex = 0;
 
+	private int hitTimes = 0;
+
 	public static EnemyManager Manager;
     
 	void Start ()
@@ -45,13 +47,15 @@ public class Enemy : MonoBehaviour
 
 	public void TakeDamage (float amount)
 	{
-		_currentHealth -= amount;
+		hitTimes++;
+		Debug.Log (amount);
 
+		_currentHealth -= amount;
 
 
 		if (_currentHealth <= 0)
 		{
-			Debug.Log ("dsfsdewqweqeeff");
+			
 			Destroy(gameObject);
 		}
 	}
