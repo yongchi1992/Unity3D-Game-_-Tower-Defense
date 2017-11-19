@@ -6,7 +6,7 @@ using System.Collections;
 
 public class EnemyManager : MonoBehaviour
 {
-	private const float SpawnTime = 4f; // Spawn every 3 seconds
+	private float SpawnTime = 4f; // Spawn every 3 seconds
 	//private const int MaxEnemyCount = 8; // Only 8 enemies allowed on screen at a time
 	public  int WaveNumber = 5;
 	private const int enemyNumber = 3;
@@ -32,7 +32,7 @@ public class EnemyManager : MonoBehaviour
 		{
 			return;
 		}
-
+		SpawnTime = (float)(14 - 2 * WaveNumber);
 		if ((Time.time - _lastspawn) < SpawnTime) return;
 		_lastspawn = Time.time;
 		StartCoroutine(Spawn(WaveNumber - 1));

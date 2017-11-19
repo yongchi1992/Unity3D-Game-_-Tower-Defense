@@ -61,7 +61,7 @@ public class Enemy : MonoBehaviour
 		{
 			Destroy(gameObject);
 		    FindObjectOfType<Base>()._enemiesDefeated++;
-            MoneyManager.M.AddMoney(100);
+            MoneyManager.M.AddMoney(_health);
 		    if (FindObjectOfType<Base>()._enemiesDefeated == 15)
 		    {
 		        MenuManager.instance.PlayerWins();
