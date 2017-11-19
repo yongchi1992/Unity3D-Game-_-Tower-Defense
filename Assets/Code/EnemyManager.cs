@@ -43,7 +43,7 @@ public class EnemyManager : MonoBehaviour
 		//if (_holder.childCount >= MaxEnemyCount) { return; }
 		for (int i = 0; i < enemyNumber; i++) {
 			SpawnEnemy (index);
-			yield return new WaitForSeconds(0.5f);
+			yield return new WaitForSeconds(1f);
 		}
 		WaveNumber--;
 	}
@@ -55,8 +55,11 @@ public class EnemyManager : MonoBehaviour
 		Renderer r = enemyObject.GetComponent<Renderer>();
 		r.material.color = render [WaveNumber - 1];
 
+		enemyObject.transform.localScale = new Vector3 ((6 - WaveNumber) * 0.3f, 0.3f, 1);
+
 		Enemy enemy = enemyObject.GetComponent<Enemy> ();
-		enemy._health = (21 - WaveNumber) * 20;
+		enemy._health = (7 - WaveNumber) * 100;
+		enemy._enemySpeed = (WaveNumber + 1) * 2;
 		enemy.tag = "Enemy";
 
 	}

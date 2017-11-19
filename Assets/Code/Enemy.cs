@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    private float _enemySpeed = 5f;
+    public float _enemySpeed = 5f;
 	public float _health = 400f;
 	private float _currentHealth;
     private Transform _nextpoint;
