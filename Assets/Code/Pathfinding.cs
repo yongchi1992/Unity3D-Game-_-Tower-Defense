@@ -32,7 +32,7 @@ public class Pathfinding : MonoBehaviour
 	}    
 
 	public static void renew (){
-		ArrayList path = bfsPath();
+		ArrayList path = bfsPath(record);
 		points = new Transform[path.Count];
 		for (int i = 0; i < path.Count; i++) {
 			Vector2 temp = (Vector2)path[i];
@@ -40,7 +40,7 @@ public class Pathfinding : MonoBehaviour
 		}
 	}
 
-	public static ArrayList bfsPath(){
+	public static ArrayList bfsPath(bool[][] record){
 		
 		Vector2[] direct = new Vector2[4];
 		direct [0] = new Vector2 (1, 0);

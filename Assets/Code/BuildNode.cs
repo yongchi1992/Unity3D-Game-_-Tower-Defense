@@ -29,6 +29,22 @@ public class BuildNode : MonoBehaviour {
 
     void OnMouseDown()
     {
+		Vector3 loc = gameObject.transform.position;
+		int arrx = (int)loc.z / (-5);
+		int arry = (int)loc.x / 5;
+		bool[][] record2 = new bool[5][];
+
+		for (int i = 0; i < 5; i++) {
+			record2 [i] = new bool[5];
+			for (int j = 0; j < 5; j++) {
+				record2 [i] [j] = Pathfinding.record [i] [j];
+			}
+		}
+		record2 [arrx] [arry] = false;
+		if (Pathfinding.bfsPath (record2) == null) {
+			return;
+		}
+
         if (buildManager._selected == this && MenuManager.instance.BuildShowing) 
         {
             MenuManager.instance.HideBuild();
@@ -57,6 +73,7 @@ public class BuildNode : MonoBehaviour {
     
     void OnMouseEnter()
     {
+		Debug.Log ("hover     " + gameObject.transform.position);
         r.material.color = hoverColor;
     }
 
