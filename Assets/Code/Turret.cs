@@ -3,26 +3,23 @@ using System.Collections;
 
 public class Turret : MonoBehaviour {
 
-	public Transform target;
+	private Transform target;
 	private Enemy targetEnemy;
-
-
-
+    
 	public float range = 10f;
-
-
+    
 	public GameObject bulletPrefab;
 	public float fireSpeed = 0.8f;
 	private float fireCountdown = 0f;
-
-
-
+    
 	public string enemyTag = "Enemy";
 
 	public Transform partToRotate;
 	public float rotateSpeed = 8f;
 
 	public Transform firePoint;
+
+    public float value;
 
 	// Use this for initialization
 	void Start () {
@@ -48,7 +45,9 @@ public class Turret : MonoBehaviour {
 		{
 			target = closetEnemy.transform;
 			targetEnemy = closetEnemy.GetComponent<Enemy>();
-		} else
+		}
+
+        else
 		{
 			target = null;
 		}
@@ -78,12 +77,23 @@ public class Turret : MonoBehaviour {
 
 	void Shoot ()
 	{
+	    if (MenuManager.instance.WinLoseShowing)
+	    {
+	        return;
+	    }
+
 		GameObject shootBullet = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
 		Bullet bullet = shootBullet.GetComponent<Bullet>();
 
 		if (bullet != null)
 			bullet.Seek(target);
 	}
+
+    public void SellTurret()
+    {
+        Destroy(gameObject);
+        MoneyManager.M.AddMoney(value * 0.9f);
+    }
 
 	void OnDrawGizmosSelected ()
 	{

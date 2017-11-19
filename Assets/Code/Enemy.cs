@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private float _enemySpeed = 5f;
-    private float _health = 100f;
+    private float _health = 10000f;
 	private float _currentHealth;
     private Transform _nextpoint;
     private int pointIndex = 0;
@@ -29,6 +29,11 @@ public class Enemy : MonoBehaviour
 	    {
 	        GetNextPoint();
 	    }
+
+	    if (MenuManager.instance.WinLoseShowing)
+	    {
+	        _enemySpeed = 0f;
+	    }
     }
 
     void GetNextPoint()
@@ -51,12 +56,16 @@ public class Enemy : MonoBehaviour
 		Debug.Log (amount);
 
 		_currentHealth -= amount;
-
-
+        
 		if (_currentHealth <= 0)
 		{
-			
 			Destroy(gameObject);
+		    FindObjectOfType<Base>()._enemiesDefeated++;
+            MoneyManager.M.AddMoney(100);
+		    if (FindObjectOfType<Base>()._enemiesDefeated == 20)
+		    {
+		        MenuManager.instance.PlayerWins();
+		    }
 		}
 	}
      

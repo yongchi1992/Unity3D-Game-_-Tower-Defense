@@ -2,42 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
-using Random = UnityEngine.Random;
 
-
-/// <inheritdoc><cref></cref>
-/// </inheritdoc>
-/// <summary>
-/// Manager class for spawning and tracking all of the game's asteroids
-/// </summary>
-// ReSharper disable once ClassNeverInstantiated.Global
 public class EnemyManager : MonoBehaviour
 {
-	private const float SpawnTime = 3f;
-	private const int MaxAsteroidCount = 8;
-	private static Object _asteroidPrefab;
+	private const float SpawnTime = 3f; // Spawn every 3 seconds
+	private const int MaxEnemyCount = 8; // Only 8 enemies allowed on screen at a time
+	private static Object _enemyPrefab;
 	private float _lastspawn;
 	private Transform _holder;
-
-	// ReSharper disable once UnusedMember.Global
-	internal void Start () {
-		_asteroidPrefab = Resources.Load("Enemy");
+    
+	internal void Start ()
+	{
+	    _enemyPrefab = Resources.Load("Enemy");
 		_holder = transform;
 		Enemy.Manager = this;
 	}
-
-	// ReSharper disable once UnusedMember.Global
+    
 	internal void Update () {
+
+        if (MenuManager.instance.WinLoseShowing)
+        {
+            return;
+        }
+
 		if ((Time.time - _lastspawn) < SpawnTime) return;
 		_lastspawn = Time.time;
 		Spawn();
 	}
 
 	private void Spawn () {
-		if (_holder.childCount >= MaxAsteroidCount) { return; }
+		if (_holder.childCount >= MaxEnemyCount) { return; }
 		Vector3 pos = new Vector3 (0, 1, 0);
-		Quaternion rotation = new Quaternion ();
-		GameObject tmpEnemy = (GameObject) Object.Instantiate(_asteroidPrefab, pos, rotation, _holder);
+		Quaternion rotation = new Quaternion (-45, 0, 0, 0);
+		GameObject tmpEnemy = (GameObject) Object.Instantiate(_enemyPrefab, pos, rotation, _holder);
 		tmpEnemy.tag = "Enemy";
 	}
 
