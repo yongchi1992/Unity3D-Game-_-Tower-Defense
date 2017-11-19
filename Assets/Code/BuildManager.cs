@@ -51,6 +51,16 @@ public class BuildManager : MonoBehaviour
         turretToBuild = basicTurretPrefab;
         MoneyManager.M.AddMoney(450);
         MenuManager.instance.HideUpgradeSell();
+
+
+		Vector3 newSell = _selected.transform.position;
+		Debug.Log (newSell);
+
+		int newy = (int)newSell.x / 5;
+		int newx = (int)newSell.z / (-5);
+
+		Pathfinding.record [newx] [newy] = true;
+		Pathfinding.renew ();
     }
     
 }
